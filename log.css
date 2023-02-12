@@ -1,0 +1,54 @@
+.holder-source{
+    cursor: pointer;
+    width: fit-content;
+    background-color: var(--theme-background);
+    padding: 2px;
+    color: var(--default-border-color);
+    text-align: center;
+    padding-top: auto;
+    padding-bottom: auto;
+    display: inline;
+}
+.find{
+    color: var(--default-border-color);
+    cursor: text;
+    background-color: var(--theme-background-dark);
+    padding: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: super;
+    text-align: center;
+    border-color: var(--default-border-color);
+    border-radius: var(--default-border-radius);
+    width: 20%;
+}
+img{
+    width: 32px;
+    height: 32px;
+}
+.editfield{
+    background-color: rgba(0, 0, 0, 0.05);
+    display: block;
+    /* width: 100%; */
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 20px;
+    border-bottom: solid;
+    border-width: var(--default-border-width);
+    border-radius: var(--default-border-radius);
+    border-color: var(--default-border-color);
+}
+.editline{
+    display: block;
+    width: 99%;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    resize: none;
+    overflow: hidden;
+    min-height: 1em;
+}
+.editline::marker{
+    background-color: var(--theme-lineback);
+    border: none;
+}

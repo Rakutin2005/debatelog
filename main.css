@@ -1,0 +1,42 @@
+:root{
+    --theme-background: #ffffff;
+    --theme-background-dark: #efefef;
+    --theme-lineback: #efefef;
+    --default-border-radius: 5px;
+    --default-border-width: 1px;
+    --default-border-color: #a0a0a0;
+    --separator-size: 2px;
+    --header-hight: 45px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    margin-top: calc(var(--header-hight)*1.2);
+}
+.header{
+    padding: 5px;
+    display: block;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--theme-background);
+    border-bottom: solid;
+    border-bottom-width: var(--default-border-width);
+    border-bottom-color: var(--default-border-color);
+    height: var(--header-hight);
+}
+.holder{
+    display: inline-block;
+    background-color: var(--theme-background);
+    padding: 5px;
+}
+.separator{
+    border-radius: var(--default-border-radius);
+    border-left: var(--separator-size) solid;
+    width: var(--separator-size);
+    height: 100%;
+    display: inline-block;
+    padding-top: auto;
+    padding-bottom: auto;
+}
