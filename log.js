@@ -2,6 +2,10 @@
 var shift = false, ctrl = false;
 var currentLevel, rootLevel;
 
+function closeMenu(){
+    document.getElementById("sidemenu").style.width = "0px";
+}
+
 function addNewPoint(){
     var statement = document.createElement('li');
     var textbox = document.createElement('textarea');
@@ -25,22 +29,36 @@ function addNewPoint(){
     statement.focus();
     textbox.focus();
 }
-function focusOnPrevious(current){
-    if(current.previousSibling != null)
-        current.previousSibling.children[0].focus();
-    else
+function focusOnPrevious(current, ignore){
+    let a;
+    if(ignore) a = current;
+    else a = current.previousSibling
+    if(a != null){
+        if(a.children[1].children.length > 0){
+            focusOnPrevious(a.children[1].children[a.children[1].children.length-1], true);
+        }else if(!ignore){
+            a.children[0].focus();
+        }else{
+            current.children[0].focus();
+        }
+    }
+    else{
         current.parentElement.parentElement.children[0].focus();
+    }
 }
-function focusOnNext(current){
-    console.log(current);
-    console.log(current.children[1]);
-    console.log(current.children[1].children[0]);
-    console.log(current.children[1].children[0].children[0]);
-    if(current.children[1].length > 0){
-        currentLevel = current.children[1].children[0];
-        currentLevel.children[0].focus();
-    }else if(current.nextSibling != null)
+function focusOnNext(current, ignore){
+    if(current.children[1].children.length > 0 && !ignore){
+        currentLevel.style.borderLeft = 'none';
+        currentLevel = current.children[1];
+        currentLevel.children[0].children[0].focus();
+    }else if(current.nextSibling != null){
         current.nextSibling.children[0].focus();
+    }
+    else if(current.parentElement != rootLevel){
+        // console.log(current.parentElement.parentElement.nextSibling);
+        // console.log(current.parentElement.parentElement.nextSibling.children[0]);
+        focusOnNext(current.parentElement.parentElement, true);
+    }
     // else
     //     current.parentElement.parentElement.children[0].focus();
 }
@@ -58,20 +76,23 @@ async function onPointTyping(event){
             event.preventDefault();
         }
     } else if (event.keyCode == 13){
-        if(shift){
-            currentLevel.style.borderLeft = 'none';
+        currentLevel.style.borderLeft = 'none';
+        if(shift&&ctrl){
+            // nex point on top level
+            currentLevel = rootLevel;
+            addNewPoint();
+        }else if(shift){
             // New layer of proof
             var parent = document.activeElement.parentElement;
             currentLevel = parent.children[1];
             addNewPoint();
-        }else if(ctrl){
-            currentLevel.style.borderLeft = 'none';
-            // nex point
-            currentLevel = rootLevel;
+        }else if(ctrl && currentLevel != rootLevel){
+            currentLevel = currentLevel.parentElement.parentElement;
             addNewPoint();
         }
         else{
             //On same level
+            currentLevel.style.borderLeft = 'solid';
             addNewPoint();
         }
         event.preventDefault();
@@ -100,6 +121,19 @@ window.onload = function(){
     var fontpick = document.getElementById("fontpick");
     fontpick.oninput = listenerFont;
     document.body.style.paddingTop = document.getElementById("header").offsetTop;
+    document.getElementById("overlay").addEventListener('click', (event)=>{
+        document.getElementById("sidemenu").style.width = "0px";
+        document.getElementById("sidemenu").style.padding = "0px";
+        document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0)";
+        document.getElementById("overlay").style.visibility = "hidden";
+    });
+    document.getElementById("sidemenu_btn").addEventListener('click', (event)=>{
+        document.getElementById("sidemenu").style.width = "25%";
+        document.getElementById("sidemenu").style.padding = "25px";
+        document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0.4)";
+        document.getElementById("overlay").style.visibility = "visible";
+        // console.log
+    });
 }
 window.onkeydown = function(ev){
     if(ev.keyCode == 16){
