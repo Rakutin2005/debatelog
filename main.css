@@ -49,14 +49,14 @@ body{
     display: block;
     background-color: var(--theme-background);
     z-index: 2;
-    position: absolute;
+    position: fixed;
     width: 0px;
     height: 100%;
 }
 .overlay{
     top: 0;
     bottom: 0;
-    position: absolute;
+    position: fixed;
     z-index: 1;
     width: 100%;
     height: 100%;
