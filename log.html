@@ -7,7 +7,52 @@
         <script src="./log.js"></script>
     </head>
     <div class="sidemenu" id="sidemenu">
-        awddd
+        <div class="brick" style="background-color: rgba(0,0,0,0.05)">
+            Hot keys
+            <br>
+            Points
+            <br>
+            <div class = "keyimbox" style="cursor: pointer;">
+                New point
+            </div>
+            <div class = "brick" style="display: inline; float: right; top: 0;">
+                <div class = "keyimbox">
+                    Enter
+                </div>
+            </div>
+            <br>
+            <div class = "brick">
+                <div class = "keyimbox">
+                    Shift
+                </div>
+                +
+                <div class = "keyimbox">
+                    Enter
+                </div>
+            </div>
+            <div class = "brick" style="display: block">
+                <div class = "keyimbox">
+                    Ctrl
+                </div>
+                +
+                <div class = "keyimbox">
+                    Enter
+                </div>
+            </div>
+            <div class = "brick" style="display: block">
+                <div class = "keyimbox">
+                    Ctrl
+                </div>
+                +
+                <div class = "keyimbox">
+                    Enter
+                </div>
+                +
+                <div class = "keyimbox">
+                    Enter
+                </div>
+            </div>
+        </div>
     </div>
     <div class="overlay" id="overlay">
         
@@ -16,8 +61,8 @@
         <div class = "header" id="header">
             <div class = "holder" style="display: inline-block; padding-top: auto; padding-bottom: auto;">
                 <img src="./svg/sidemenu.svg" id="sidemenu_btn" style="border-right: var(--separator-size) solid; border-color: var(--default-border-color); cursor: pointer;">
-                <img src="./svg/timestart.svg" style="cursor: pointer;">
-                <div class="find" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
+                <img src="./svg/timestart.svg" style="cursor: pointer;" id="timer_btn">
+                <div class="find" id="timer" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
                     0:00
                 </div>
                 <input id="fontpick" type="number" class="find" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">

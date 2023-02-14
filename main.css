@@ -2,6 +2,7 @@
     --theme-background: #ffffff;
     --theme-background-dark: #efefef;
     --theme-lineback: #efefef;
+    --theme-highligh: rgb(255, 230, 135);
     --default-border-radius: 5px;
     --default-border-width: 1px;
     --default-border-color: #a0a0a0;
@@ -54,6 +55,7 @@ body{
 }
 .overlay{
     top: 0;
+    bottom: 0;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -61,4 +63,29 @@ body{
     background-color: rgba(0,0,0,0);
     transition: .5s;
     visibility: hidden;
+}
+.brick{
+    display: block;
+    border: solid;
+    border-width: var(--default-border-width);
+    border-color: var(--default-border-color);
+    border-radius: 10px;
+    /* background-color: rgba(0, 0, 0, 0.15); */
+    padding: 4px;
+    margin: 5px;
+}
+.brick::content{
+    float: right;
+}
+.keyimbox{
+    display: inline-block;
+    border-width: var(--default-border-width);
+    border-color: var(--default-border-color);
+    border-radius: 10px;
+    margin: 5px;
+    background-color: rgba(220,220,220,1);
+    padding: 7px;
+    width: fit-content;
+    border: none;
+    border-bottom: solid;
 }

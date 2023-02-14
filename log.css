@@ -47,6 +47,7 @@ img{
     resize: none;
     overflow: hidden;
     min-height: 1em;
+    border-radius: 7px;
 }
 .editline::marker{
     background-color: var(--theme-lineback);

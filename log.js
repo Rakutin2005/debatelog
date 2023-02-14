@@ -1,5 +1,6 @@
 // const pointText = "<li> <textarea rows=\"1\" class=\"editline\"></textarea> </li>"
 var shift = false, ctrl = false;
+var timemmark_start;
 var currentLevel, rootLevel;
 
 function closeMenu(){
@@ -96,11 +97,22 @@ async function onPointTyping(event){
             addNewPoint();
         }
         event.preventDefault();
-    } else if(event.keyCode == 38){
+    } else if(event.keyCode == 38){ //Up
         focusOnPrevious(event.srcElement.parentElement);
         event.preventDefault();
-    } else if (event.keyCode == 40){
+    } else if (event.keyCode == 40){ //Down
         focusOnNext(event.srcElement.parentElement);
+        event.preventDefault();
+    } else if(event.keyCode == 39){ //Right
+        if(ctrl){
+            
+        }
+    } else if(event.keyCode == 37 && ctrl){ //Left
+        if(event.srcElement.style.backgroundColor == ''){
+            event.srcElement.style.backgroundColor = 'var(--theme-highligh)';
+        }else{
+            event.srcElement.style.backgroundColor = '';
+        }
         event.preventDefault();
     }
 }
@@ -134,6 +146,27 @@ window.onload = function(){
         document.getElementById("overlay").style.visibility = "visible";
         // console.log
     });
+    document.getElementById("timer_btn").addEventListener('click', (event) => {
+        if(timemmark_start == null){
+            timemmark_start = new Date();
+        }else{
+            timemmark_start = null;
+        }
+    });
+    window.setInterval(updateTimer, 500);
+}
+function updateTimer(){
+    if(timemmark_start != null){
+        let endDate = new Date();
+        var seconds = (endDate.getTime() - timemmark_start.getTime()) / 1000;
+        document.getElementById('timer').innerText = Math.floor(seconds/60) + ':';
+        if( + Math.floor(seconds%60) < 10) document.getElementById('timer').innerText+='0';
+        document.getElementById('timer').innerText += Math.floor(seconds%60);
+        document.getElementById('timer_btn').setAttribute('src', './svg/timestop.svg');
+    }else{
+        document.getElementById('timer_btn').setAttribute('src', './svg/timestart.svg');
+        document.getElementById('timer').innerText = "0:00";
+    }
 }
 window.onkeydown = function(ev){
     if(ev.keyCode == 16){
