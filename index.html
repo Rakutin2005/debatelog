@@ -1,55 +1,83 @@
-.holder-source{
-    cursor: pointer;
-    width: fit-content;
-    background-color: var(--theme-background);
-    padding: 2px;
-    color: var(--default-border-color);
-    text-align: center;
-    padding-top: auto;
-    padding-bottom: auto;
-    display: inline;
-}
-.find{
-    color: var(--default-border-color);
-    cursor: text;
-    background-color: var(--theme-background-dark);
-    padding: 2px;
-    margin-left: 5px;
-    margin-right: 5px;
-    display: inline-block;
-    vertical-align: super;
-    text-align: center;
-    border-color: var(--default-border-color);
-    border-radius: var(--default-border-radius);
-    width: 20%;
-}
-img{
-    width: 32px;
-    height: 32px;
-}
-.editfield{
-    background-color: rgba(0, 0, 0, 0.05);
-    display: block;
-    /* width: 100%; */
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 20px;
-    border-bottom: solid;
-    border-width: var(--default-border-width);
-    border-radius: var(--default-border-radius);
-    border-color: var(--default-border-color);
-}
-.editline{
-    display: block;
-    width: 99%;
-    background-color: rgba(0,0,0,0);
-    border: none;
-    resize: none;
-    overflow: hidden;
-    min-height: 1em;
-    border-radius: 7px;
-}
-.editline::marker{
-    background-color: var(--theme-lineback);
-    border: none;
-}
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./log.css">
+    <head>
+        <title> Files </title>
+        <script src="./log.js"></script>
+    </head>
+    
+    <body>
+        <div class="sidemenu" id="sidemenu">
+            <div class="brick" style="background-color: rgba(0,0,0,0.05)">
+                Hot keys
+                <br>
+                Points
+                <br>
+                <div class = "keyimbox" style="cursor: pointer;">
+                    New point
+                </div>
+                <div class = "brick" style="display: inline; float: right; top: 0;">
+                    <div class = "keyimbox">
+                        Enter
+                    </div>
+                </div>
+                <br>
+                <div class = "brick">
+                    <div class = "keyimbox">
+                        Shift
+                    </div>
+                    +
+                    <div class = "keyimbox">
+                        Enter
+                    </div>
+                </div>
+                <div class = "brick" style="display: block">
+                    <div class = "keyimbox">
+                        Ctrl
+                    </div>
+                    +
+                    <div class = "keyimbox">
+                        Enter
+                    </div>
+                </div>
+                <div class = "brick" style="display: block">
+                    <div class = "keyimbox">
+                        Ctrl
+                    </div>
+                    +
+                    <div class = "keyimbox">
+                        Enter
+                    </div>
+                    +
+                    <div class = "keyimbox">
+                        Enter
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay" id="overlay">
+            
+        </div>
+        <div class = "header" id="header">
+            <div class = "holder" style="display: inline-block; padding-top: auto; padding-bottom: auto;">
+                <img src="./svg/sidemenu.svg" id="sidemenu_btn" style="border-right: var(--separator-size) solid; border-color: var(--default-border-color); cursor: pointer;">
+                <img src="./svg/timestart.svg" style="cursor: pointer;" id="timer_btn">
+                <div class="find" id="timer" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
+                    0:00
+                </div>
+                <input id="fontpick" type="number" class="find" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
+            </div>
+            <div calss = "holder" style="display: inline; vertical-align: super;">
+            </div>
+            <div class="find">
+                Search
+            </div>
+        </div>
+        <div>
+            <ul class="editfield" id="pointlist">
+                <!-- <li> <textarea rows="1" class="editline"></textarea> </li> -->
+            </ul>
+        </div>
+    </body>
+</html>
