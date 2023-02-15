@@ -3,8 +3,25 @@ var shift = false, ctrl = false;
 var timemmark_start;
 var currentLevel, rootLevel;
 
-function closeMenu(){
-    document.getElementById("sidemenu").style.width = "0px";
+function saveSpeech(){
+    let data = "data:text/plain;charset=UTF-8;page=21,";
+    data += encodeURIComponent(levelToString(rootLevel, 0));
+    var element = document.createElement('a');
+    element.setAttribute('href', data);
+    element.setAttribute('download', 'speech.txt');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+function levelToString(level, lvlnum){
+    let data = ""
+    for(let c of level.children){
+        data += ('\t'.repeat(lvlnum))+c.children[0].value+'\n';
+        if(c.children[1].children.length > 0)
+            data += levelToString(c.children[1], lvlnum+1);
+    }
+    return data;
 }
 
 function addNewPoint(){
@@ -116,22 +133,22 @@ async function onPointTyping(event){
         event.preventDefault();
     }
 }
-function listenerFont(ev){
-    if(ev.keyCode == 13){
-        updateFont();
-    }
-}
-function updateFont(){
-    const fontpick = document.getElementById("fontpick");
-    console.log(fontpick.value);
-    document.body.style.fontSize = fontpick.value;
-}
+// function listenerFont(ev){
+//     if(ev.keyCode == 13){
+//         updateFont();
+//     }
+// }
+// function updateFont(){
+//     const fontpick = document.getElementById("fontpick");
+//     console.log(fontpick.value);
+//     document.body.style.fontSize = fontpick.value;
+// }
 window.onload = function(){
     rootLevel = document.getElementById("pointlist");
     currentLevel = rootLevel;
     addNewPoint();
-    var fontpick = document.getElementById("fontpick");
-    fontpick.oninput = listenerFont;
+    // var fontpick = document.getElementById("fontpick");
+    // fontpick.oninput = listenerFont;
     document.body.style.paddingTop = document.getElementById("header").offsetTop;
     document.getElementById("overlay").addEventListener('click', (event)=>{
         document.getElementById("sidemenu").style.width = "0px";
@@ -140,7 +157,7 @@ window.onload = function(){
         document.getElementById("overlay").style.visibility = "hidden";
     });
     document.getElementById("sidemenu_btn").addEventListener('click', (event)=>{
-        document.getElementById("sidemenu").style.width = "25%";
+        document.getElementById("sidemenu").style.width = "480px";
         document.getElementById("sidemenu").style.padding = "25px";
         document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0.4)";
         document.getElementById("overlay").style.visibility = "visible";
