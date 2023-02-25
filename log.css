@@ -1,3 +1,16 @@
+:root{
+    --theme-lineback: #efefef;
+    --theme-highligh0: rgb(255, 230, 135);
+    --theme-highligh1: rgb(255, 142, 149);
+    --theme-highligh2: rgb(175, 255, 135);
+    --theme-highligh3: rgb(255, 255, 255);
+    --theme-highligh4: rgb(195, 195, 235);
+    --theme-highligh5: rgb(255, 230, 135);
+    --theme-highligh6: rgb(255, 230, 135);
+    --theme-highligh7: rgb(255, 230, 135);
+    --theme-highligh8: rgb(255, 230, 135);
+    --theme-highligh9: rgb(255, 230, 135);
+}
 .holder-source{
     cursor: pointer;
     width: fit-content;
@@ -52,4 +65,10 @@ img{
 .editline::marker{
     background-color: var(--theme-lineback);
     border: none;
+}
+.start_btn{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-image: "./svg/timestart.svg";
 }

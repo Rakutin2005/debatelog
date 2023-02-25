@@ -1,8 +1,6 @@
 :root{
     --theme-background: #ffffff;
     --theme-background-dark: #efefef;
-    --theme-lineback: #efefef;
-    --theme-highligh: rgb(255, 230, 135);
     --default-border-radius: 5px;
     --default-border-width: 1px;
     --default-border-color: #a0a0a0;
@@ -29,7 +27,7 @@ body{
 }
 .holder{
     display: inline-block;
-    background-color: var(--theme-background);
+    /* background-color: var(--theme-background); */
     padding: 5px;
 }
 .separator{
@@ -45,13 +43,14 @@ body{
     /* padding: 10px; */
     top: 0;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.7s;
     display: block;
     background-color: var(--theme-background);
     z-index: 2;
     position: fixed;
     width: 0px;
     height: 100%;
+    animation-timing-function: ease-in-out;
 }
 .overlay{
     top: 0;

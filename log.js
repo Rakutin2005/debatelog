@@ -3,6 +3,18 @@ var shift = false, ctrl = false;
 var timemmark_start;
 var currentLevel, rootLevel;
 
+var notes = [];
+var notesArray = [[],[],[],[],[],[],[],[],[],[]];
+[]
+function removeFromArray(arr, index){
+    let arr2 = [];
+    for(let i = 0; i < arr.length; i++){
+        if(i != index){
+            arr2.push(arr[i]);
+        }
+    }
+    return arr2;
+}
 function saveSpeech(){
     let data = "data:text/plain;charset=UTF-8;page=21,";
     data += encodeURIComponent(levelToString(rootLevel, 0));
@@ -15,7 +27,7 @@ function saveSpeech(){
     document.body.removeChild(element);
 }
 function levelToString(level, lvlnum){
-    let data = ""
+    let data = "";
     for(let c of level.children){
         data += ('\t'.repeat(lvlnum))+c.children[0].value+'\n';
         if(c.children[1].children.length > 0)
@@ -73,13 +85,21 @@ function focusOnNext(current, ignore){
         current.nextSibling.children[0].focus();
     }
     else if(current.parentElement != rootLevel){
-        // console.log(current.parentElement.parentElement.nextSibling);
-        // console.log(current.parentElement.parentElement.nextSibling.children[0]);
         focusOnNext(current.parentElement.parentElement, true);
     }
-    // else
-    //     current.parentElement.parentElement.children[0].focus();
 }
+
+function duplicateChildNodes(parent){
+    let me = parent.cloneNode();
+    NodeList.prototype.forEach = Array.prototype.forEach;
+    var children = parent.childNodes;
+    children.forEach(function(item){
+        var cln = duplicateChildNodes (item);
+        me.appendChild(cln);
+    });
+    return me;
+};
+
 async function onPointTyping(event){
     if(event.keyCode == 8){
         if (event.srcElement.value == "" || event.srcElement.value == null){
@@ -124,45 +144,87 @@ async function onPointTyping(event){
         if(ctrl){
             
         }
-    } else if(event.keyCode == 37 && ctrl){ //Left
-        if(event.srcElement.style.backgroundColor == ''){
-            event.srcElement.style.backgroundColor = 'var(--theme-highligh)';
+    } else if(ctrl){
+        if(event.keyCode == 37){
+            if(event.srcElement.style.backgroundColor != 'var(--theme-highligh0)'){
+                event.srcElement.style.backgroundColor = 'var(--theme-highligh0)';
+                notesArray[0].push(event.srcElement.parentElement);
+            }else{
+                event.srcElement.style.backgroundColor = '';
+                for(let a of notesArray[0]){
+                    if(a == event.srcElement.parentElement){
+                        notesArray[0] = removeFromArray(notesArray[0].indexOf(a));
+                    }
+                }
+            }
+            event.preventDefault();
         }else{
-            event.srcElement.style.backgroundColor = '';
+            if(event.keyCode <= 57 && event.keyCode >= 48){
+                let ni = event.keyCode - 48;
+                let strcol = 'var(--theme-highligh'+String.fromCharCode(event.keyCode)+')';
+                if(event.srcElement.style.backgroundColor != strcol){
+                    event.srcElement.style.backgroundColor = strcol;
+                    notesArray[ni].push(event.srcElement.parentElement);
+                }else{
+                    event.srcElement.style.backgroundColor = '';
+                    for(let a of notesArray[ni]){
+                        if(a == event.srcElement.parentElement){
+                            notesArray[ni] = removeFromArray(notesArray[ni].indexOf(a));
+                        }
+                    }
+                }
+                event.preventDefault();
+            }
         }
-        event.preventDefault();
     }
 }
-// function listenerFont(ev){
-//     if(ev.keyCode == 13){
-//         updateFont();
-//     }
-// }
-// function updateFont(){
-//     const fontpick = document.getElementById("fontpick");
-//     console.log(fontpick.value);
-//     document.body.style.fontSize = fontpick.value;
-// }
+function openSideMenu(ev){
+    for(let i = 0; i < 10; i++){
+        for(a of notesArray[i]){
+            notes[i].appendChild(duplicateChildNodes(a));
+        }
+    }
+    document.getElementById("sidemenu").style.width = "480px";
+    document.getElementById("sidemenu").style.padding = "25px";
+    document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0.4)";
+    document.getElementById("overlay").style.visibility = "visible";
+    for(let a of notes){
+        console.log(a);
+        if(a.children.length == 0){
+            a.style.padding = "0px";
+            a.style.margin = "0px";
+            a.style.visibility = "hidden";
+        }else{
+            a.style.padding = "0px";
+            a.style.margin = "16px";
+            a.style.visibility = "visible";
+        }
+    }
+}
+function closeSideMenu(ev){
+    document.getElementById("sidemenu").style.width = "0px";
+    document.getElementById("sidemenu").style.padding = "0px";
+    document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0)";
+    document.getElementById("overlay").style.visibility = "hidden";
+    for(let i = 0; i < 10; i++){
+        for(a of notes[i].children){
+            notes[i].removeChild(a);
+        }
+    }
+}
 window.onload = function(){
     rootLevel = document.getElementById("pointlist");
+    for(let i = 0; i < 10; i++){
+        notes[i] = document.getElementById("notes"+i);
+    }
+    // notes = 
     currentLevel = rootLevel;
     addNewPoint();
     // var fontpick = document.getElementById("fontpick");
     // fontpick.oninput = listenerFont;
     document.body.style.paddingTop = document.getElementById("header").offsetTop;
-    document.getElementById("overlay").addEventListener('click', (event)=>{
-        document.getElementById("sidemenu").style.width = "0px";
-        document.getElementById("sidemenu").style.padding = "0px";
-        document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0)";
-        document.getElementById("overlay").style.visibility = "hidden";
-    });
-    document.getElementById("sidemenu_btn").addEventListener('click', (event)=>{
-        document.getElementById("sidemenu").style.width = "480px";
-        document.getElementById("sidemenu").style.padding = "25px";
-        document.getElementById("overlay").style.backgroundColor = "rgba(0,0,0,0.4)";
-        document.getElementById("overlay").style.visibility = "visible";
-        // console.log
-    });
+    document.getElementById("overlay").addEventListener('click', closeSideMenu);
+    document.getElementById("sidemenu_btn").addEventListener('click', openSideMenu);
     document.getElementById("timer_btn").addEventListener('click', (event) => {
         if(timemmark_start == null){
             timemmark_start = new Date();
@@ -170,19 +232,32 @@ window.onload = function(){
             timemmark_start = null;
         }
     });
-    window.setInterval(updateTimer, 500);
+    document.getElementById("timer_btn_side").addEventListener('click', (event) => {
+        if(timemmark_start == null){
+            timemmark_start = new Date();
+        }else{
+            timemmark_start = null;
+        }
+    });
+    window.setInterval(updateTimer, 100);
 }
 function updateTimer(){
     if(timemmark_start != null){
         let endDate = new Date();
         var seconds = (endDate.getTime() - timemmark_start.getTime()) / 1000;
         document.getElementById('timer').innerText = Math.floor(seconds/60) + ':';
+        document.getElementById('timer_side').innerText = Math.floor(seconds/60) + ':';
         if( + Math.floor(seconds%60) < 10) document.getElementById('timer').innerText+='0';
         document.getElementById('timer').innerText += Math.floor(seconds%60);
+        document.getElementById('timer_side').innerText += Math.floor(seconds%60);
         document.getElementById('timer_btn').setAttribute('src', './svg/timestop.svg');
+        document.getElementById('timer_btn_side').setAttribute('src', './svg/timestop.svg');
     }else{
         document.getElementById('timer_btn').setAttribute('src', './svg/timestart.svg');
+        document.getElementById('timer_btn_side').setAttribute('src', './svg/timestart.svg');
         document.getElementById('timer').innerText = "0:00";
+        document.getElementById('timer_side').innerText = "0:00";
+        
     }
 }
 window.onkeydown = function(ev){
