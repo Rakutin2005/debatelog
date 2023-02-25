@@ -9,55 +9,33 @@
     
     <body>
         <div class="sidemenu" id="sidemenu">
-            <div class="brick" style="background-color: rgba(0,0,0,0.05)">
-                Hot keys
-                <br>
-                Points
-                <br>
-                <div class = "keyimbox" style="cursor: pointer;">
-                    New point
+            
+            <img class="keyimbox" style="display: inline-block; width: 32px; height: 32px; cursor: pointer;" src="./svg/timestart.svg" id="timer_btn_side">
+            <div class="keyimbox" style="display: inline-block; cursor: default; vertical-align: top; height: 32px; text-align: center;">
+                <div class="holder" id="timer_side">
+                    0:00
                 </div>
-                <div class = "brick" style="display: inline; float: right; top: 0;">
-                    <div class = "keyimbox">
-                        Enter
-                    </div>
-                </div>
-                <br>
-                <div class = "brick">
-                    <div class = "keyimbox">
-                        Shift
-                    </div>
-                    +
-                    <div class = "keyimbox">
-                        Enter
-                    </div>
-                </div>
-                <div class = "brick" style="display: block">
-                    <div class = "keyimbox">
-                        Ctrl
-                    </div>
-                    +
-                    <div class = "keyimbox">
-                        Enter
-                    </div>
-                </div>
-                <div class = "brick" style="display: block">
-                    <div class = "keyimbox">
-                        Ctrl
-                    </div>
-                    +
-                    <div class = "keyimbox">
-                        Enter
-                    </div>
-                    +
-                    <div class = "keyimbox">
-                        Enter
-                    </div>
-                </div>
+            </div>
+            <br>
+            <div class="keyimbox" style="display: block; width: 100%;">
+                Notes
+                <ul class="editfield" id="notes0"></ul>
+                <ul class="editfield" id="notes1"></ul>
+                <ul class="editfield" id="notes2"></ul>
+                <ul class="editfield" id="notes3"></ul>
+                <ul class="editfield" id="notes4"></ul>
+                <ul class="editfield" id="notes5"></ul>
+                <ul class="editfield" id="notes6"></ul>
+                <ul class="editfield" id="notes7"></ul>
+                <ul class="editfield" id="notes8"></ul>
+                <ul class="editfield" id="notes9"></ul>
+            </div>
+            <div class="keyimbox" style="cursor: pointer;" onclick="saveSpeech()">
+                Save speech
             </div>
         </div>
         <div class="overlay" id="overlay">
-            
+
         </div>
         <div class = "header" id="header">
             <div class = "holder" style="display: inline-block; padding-top: auto; padding-bottom: auto;">
@@ -66,13 +44,13 @@
                 <div class="find" id="timer" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
                     0:00
                 </div>
+            </div>
+            <div calss = "holder" style="display: inline-block; vertical-align: super;">
+                
+            </div>
+            <!-- <div calss = "holder" style="display: inline-block; vertical-align: super; height: 100%; float: right;">
                 <input id="fontpick" type="number" class="find" style="display: inline; cursor: default; vertical-align: super; margin-top: auto; margin-bottom: auto;">
-            </div>
-            <div calss = "holder" style="display: inline; vertical-align: super;">
-            </div>
-            <div class="find">
-                Search
-            </div>
+            </div> -->
         </div>
         <div>
             <ul class="editfield" id="pointlist">
